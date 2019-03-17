@@ -1,0 +1,150 @@
+// store variable 
+$skycolor: #005DFF;
+$padding: 15px;
+$border: 15px;
+// make property
+$color:(
+    primary: #005DFF,
+    whiteColor: #fff,
+    blackColor: #000,
+    primary-light: lighten(#005DFF, 40%),
+    primary-dark: lighten(rgb(28, 85, 182), 40%),
+    accent: #FFF6BB
+
+
+);
+// function in css
+@function color($color-name){
+    @return map-get($color, $color-name)
+};
+$desktop: 840px;
+@mixin desktop{
+    @media (min-width: #{$desktop}){
+        @content;
+    }
+}
+ 
+body, html{
+   height: 100%;
+}
+
+body{
+    margin: 0;
+    #body-container{
+        clip-path: polygon(100% 0, 100% 76%, 54% 100%, 0 100%, 0 0);
+        // background-color: map-get($color, primary);
+        background-color: color(primary);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: -1;
+
+        @include desktop{
+            clip-path: polygon(0 0, 83% 0, 48% 100%, 0% 100%);
+        }
+    }
+    header a {
+        color: color(whiteColor);
+        text-decoration: none;
+        padding: $padding;
+        text-transform: uppercase;
+    }
+}
+
+main{
+    @include desktop{
+        // grid system applied
+        display: grid;
+        grid-template-columns: 50% auto;
+        grid-template-areas:
+         "primary card";
+    }
+}
+section#card{
+    background-color: color(whiteColor);
+    padding: $padding + 5;
+    margin: 1em auto;
+    border-radius: $border;
+    box-shadow: 0 10px 30px rgba(0,0,0,.2);
+    width: 80%;
+
+    // desktop responsive
+    @include desktop{
+        // place content based on name mentioned above " grid-template-areas:  "primary card";"
+        grid-area: card;
+        height: fit-content;
+        align-self: center;
+        margin: 1em;
+    }
+    ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li{
+            margin-bottom: 10px;
+
+            span{
+                position: absolute;
+                height: 20px;
+                width: 20px;
+                background-color: color(primary);
+                border-radius: 50%;
+                margin-right: 10%
+
+            }
+
+            strong{
+                display: inline-block;
+                margin: 1px 0px 0px 40px; 
+            }
+        }
+        
+    }
+}
+
+section#primary{
+    color: color(whiteColor);
+    padding: $padding;
+    text-align: center;
+
+     // desktop responsive
+    @include desktop{
+        // place content based on name mentioned above " grid-template-areas:  "primary card";"
+        grid-area: primary;
+        text-align: center;
+        margin: 4em 0 0 4em;
+    }
+    h1{
+        font-size: 3em;
+        margin-top: 10px;
+        text-transform: uppercase;
+
+        @include desktop{
+            width: 30%;
+            font-size: 4em;
+            line-height: .9em
+        }
+    }
+    p{
+        font-size: 1.4m;
+    }
+    a{
+        color: color(primary-dark);
+        border-radius: $border;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        background-color: color(accent);
+        display: block;
+        text-align: center;
+        margin: 50px auto 0 auto;
+        padding: $padding ;
+
+        @include desktop{
+            display: inline-block;
+            padding: $padding $padding * 4;
+        }
+
+    }
+}
